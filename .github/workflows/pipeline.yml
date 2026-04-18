@@ -50,7 +50,6 @@ jobs:
             --config .semgrep.yml \
             --error \
            src/app.fixed.js
-
   sca:
     name: "Gate 3 · SCA (Grype)"
     runs-on: ubuntu-latest
