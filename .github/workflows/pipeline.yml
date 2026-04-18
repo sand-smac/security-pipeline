@@ -28,10 +28,11 @@ jobs:
       - name: Escanear repositório em busca de segredos
         run: |
           gitleaks detect \
-            --config .gitleaks.toml \
-            --source . \
-            --verbose \
-            --exit-code 1
+  --config .gitleaks.toml \
+  --source . \
+  --no-git \
+  --verbose \
+  --exit-code 1
 
   sast:
     name: "Gate 2 · SAST (Semgrep)"
