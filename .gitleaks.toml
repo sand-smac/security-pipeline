@@ -1,0 +1,24 @@
+title = "Gitleaks — Startup Security Pipeline"
+
+[[rules]]
+  id          = "generic-api-key"
+  description = "Chave de API genérica detectada"
+  regex       = '''(?i)(api[_-]?key|apikey|api[_-]?secret)\s*[=:]\s*["']?[A-Za-z0-9_\-]{20,}["']?'''
+  tags        = ["secret", "api-key"]
+
+[[rules]]
+  id          = "hardcoded-password"
+  description = "Senha hardcoded detectada"
+  regex       = '''(?i)(password|passwd|pwd)\s*[=:]\s*["'][^"']{4,}["']'''
+  tags        = ["secret", "password"]
+
+[allowlist]
+  description = "Exceções globais"
+  regexes     = [
+    '''process\.env\.[A-Z_]+''',
+    '''(YOUR|EXAMPLE|PLACEHOLDER|CHANGE.ME)''',
+  ]
+  paths       = [
+    '''README\.md''',
+    '''\.test\.(js|ts)$''',
+  ]
