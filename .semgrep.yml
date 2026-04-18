@@ -1,0 +1,55 @@
+rules:
+
+  - id: sql-injection-string-concat
+    patterns:
+      - pattern: |
+          $QUERY = `... ${$INPUT} ...`
+      - pattern-either:
+          - pattern-inside: |
+              $DB.query($QUERY, ...)
+          - pattern-inside: |
+              $DB.execute($QUERY, ...)
+    message: >
+      SQL Injection detectado: use prepared statements com placeholders (?).
+    languages: [javascript, typescript]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-89"
+      owasp: "A03:2021"
+
+  - id: command-injection-exec
+    patterns:
+      - pattern: |
+          exec(`... ${$INPUT} ...`, ...)
+    message: >
+      Command Injection detectado: use execFile() com lista de argumentos.
+    languages: [javascript, typescript]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-78"
+      owasp: "A03:2021"
+
+  - id: xss-reflected-res-send
+    pattern: |
+      res.send(`...<html>...${$INPUT}...</html>...`)
+    message: >
+      XSS Refletido detectado: use he.encode() antes de inserir input no HTML.
+    languages: [javascript, typescript]
+    severity: WARNING
+    metadata:
+      cwe: "CWE-79"
+      owasp: "A03:2021"
+
+  - id: hardcoded-secret-assignment
+    pattern: |
+      const $VAR = "$VALUE"
+    metavariable-regex:
+      metavariable: $VAR
+      regex: '(?i)(secret|token|password|api.?key|passwd)'
+    message: >
+      Segredo hardcoded detectado: use process.env.NOME_DA_VARIAVEL.
+    languages: [javascript, typescript]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-798"
+      owasp: "A07:2021"
