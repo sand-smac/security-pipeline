@@ -49,7 +49,7 @@ jobs:
           semgrep scan \
             --config .semgrep.yml \
             --error \
-            src/app.js
+           src/app.fixed.js
 
   sca:
     name: "Gate 3 · SCA (Grype)"
