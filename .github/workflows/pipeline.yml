@@ -28,11 +28,11 @@ jobs:
       - name: Escanear repositório em busca de segredos
         run: |
           gitleaks detect \
-  --config .gitleaks.toml \
-  --source . \
-  --no-git \
-  --verbose \
-  --exit-code 1
+            --config .gitleaks.toml \
+            --source . \
+            --no-git \
+            --verbose \
+            --exit-code 1
 
   sast:
     name: "Gate 2 · SAST (Semgrep)"
@@ -50,7 +50,8 @@ jobs:
           semgrep scan \
             --config .semgrep.yml \
             --error \
-           src/app.fixed.js
+            src/app.fixed.js
+
   sca:
     name: "Gate 3 · SCA (Grype)"
     runs-on: ubuntu-latest
