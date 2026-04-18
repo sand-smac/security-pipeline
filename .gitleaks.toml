@@ -21,4 +21,5 @@ title = "Gitleaks — Startup Security Pipeline"
   paths       = [
     '''README\.md''',
     '''\.test\.(js|ts)$''',
+    '''src/app\.js''',
   ]
