@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Pipeline Report</title>
+  <style>
+    body { font-family: monospace; background: #0d1117; color: #e6edf3; padding: 2rem; }
+    h1 { color: #58a6ff; }
+    h2 { color: #3fb950; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
+    .gate { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 1rem; margin-bottom: 12px; }
+    .ok { color: #3fb950; }
+    .fail { color: #f85149; }
+    code { background: #21262d; padding: 2px 6px; border-radius: 4px; color: #bc8cff; }
+  </style>
+</head>
+<body>
+
+  <h1>🛡️ Security Pipeline Report</h1>
+  <p>Repositório: <code>sand-smac/security-pipeline</code> · Branch: <code>main</code></p>
+
+  <h2>Gates de Segurança</h2>
+
+  <div class="gate">
+    <h3 class="ok">✅ Gate 1 — Secrets Scanning (Gitleaks)</h3>
+    <p>Nenhum segredo hardcoded detectado. Credenciais movidas para <code>process.env.*</code></p>
+  </div>
+
+  <div class="gate">
+    <h3 class="ok">✅ Gate 2 — SAST (Semgrep)</h3>
+    <p>Nenhuma vulnerabilidade de código detectada.</p>
+    <ul>
+      <li>SQL Injection → corrigido com prepared statements</li>
+      <li>Command Injection → corrigido com execFile()</li>
+      <li>XSS Refletido → corrigido com he.encode()</li>
+    </ul>
+  </div>
+
+  <div class="gate">
+    <h3 class="ok">✅ Gate 3 — SCA (Grype)</h3>
+    <p>Nenhum CVE de severidade HIGH ou CRITICAL nas dependências.</p>
+  </div>
+
+  <div class="gate">
+    <h3 class="ok">✅ Gate 4 — Deploy (GitHub Pages)</h3>
+    <p>Todos os gates passaram. Deploy autorizado! 🚀</p>
+  </div>
+
+</body>
+</html>
