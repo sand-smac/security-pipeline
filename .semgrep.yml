@@ -41,11 +41,12 @@ rules:
       owasp: "A03:2021"
 
   - id: hardcoded-secret-assignment
-    pattern: |
-      const $VAR = "$VALUE"
-    metavariable-regex:
-      metavariable: $VAR
-      regex: '(?i)(secret|token|password|api.?key|passwd)'
+    patterns:
+      - pattern: |
+          const $VAR = "$VALUE"
+      - metavariable-regex:
+          metavariable: $VAR
+          regex: '(?i)(secret|token|password|api.?key|passwd)'
     message: >
       Segredo hardcoded detectado: use process.env.NOME_DA_VARIAVEL.
     languages: [javascript, typescript]
