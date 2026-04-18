@@ -1,0 +1,105 @@
+name: Security Pipeline — Versão Vulnerável
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  secrets-scanning:
+    name: "Gate 1 · Secrets Scanning (Gitleaks)"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Instalar Gitleaks
+        run: |
+          curl -sSL https://github.com/gitleaks/gitleaks/releases/download/v8.18.2/gitleaks_8.18.2_linux_x64.tar.gz \
+            | tar xz -C /usr/local/bin gitleaks
+
+      - name: Escanear repositório em busca de segredos
+        run: |
+          gitleaks detect \
+            --config .gitleaks.toml \
+            --source . \
+            --verbose \
+            --exit-code 1
+
+  sast:
+    name: "Gate 2 · SAST (Semgrep)"
+    runs-on: ubuntu-latest
+    needs: secrets-scanning
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Instalar Semgrep
+        run: pip install semgrep --quiet
+
+      - name: Analisar código-fonte
+        run: |
+          semgrep scan \
+            --config .semgrep.yml \
+            --error \
+            src/app.js
+
+  sca:
+    name: "Gate 3 · SCA (Grype)"
+    runs-on: ubuntu-latest
+    needs: secrets-scanning
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Instalar Grype
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh \
+            | sh -s -- -b /usr/local/bin
+
+      - name: Escanear dependências
+        run: |
+          grype dir:. --fail-on high
+
+  deploy:
+    name: "Gate 4 · Deploy (GitHub Pages)"
+    runs-on: ubuntu-latest
+    needs: [secrets-scanning, sast, sca]
+    if: success()
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Publicar docs no GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
+
+      - name: Deploy para GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
