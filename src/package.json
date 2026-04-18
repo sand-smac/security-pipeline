@@ -1,0 +1,19 @@
+{
+  "name": "security-pipeline-demo",
+  "version": "1.0.0",
+  "description": "Aplicação demo para esteira de segurança CI/CD",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "start:secure": "node src/app.fixed.js",
+    "test": "jest --coverage"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.5",
+    "he": "^1.2.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
