@@ -50,7 +50,20 @@ Ele encontrou três problemas no código:
 
 ### Gate 3 — Grype (SCA)
 
-O Grype verifica as dependências do projeto (as bibliotecas listadas no `package.json`) em busca de vulnerabilidades conhecidas, chamadas de CVEs.
+O Grype verifica as dependências do projeto (as bibliotecas listadas no `package.json`) em busca de vulnerabilidades conhecidas, chamadas de CVEs.E detectou 6 CVEs — 2 críticos e 4 moderados — nas versões originais de mysql2 e express.
+mysql2 ^3.6.5 → atualizado para ^3.9.8
+
+CVE-2024-21508 (CRITICAL) — RCE via readCodeFor por validação incorreta de supportBigNumbers
+CVE-2024-21511 (CRITICAL) — Arbitrary Code Injection via parâmetro timezone não sanitizado
+CVE-2024-21509 (MODERATE) — Prototype Poisoning em text_parser.js e binary_parser.js
+CVE-2024-21507 (MODERATE) — Cache Poisoning via keyFromFields
+
+express ^4.18.2 → atualizado para ^4.21.2
+
+CVE-2024-29041 (MODERATE) — Open Redirect em res.redirect() via URLs malformadas
+CVE-2024-43796 (MODERATE) — XSS em res.redirect() com input não sanitizado
+
+Após as atualizações, o Grype não encontrou nenhum CVE de severidade HIGH ou CRITICAL. A he ^1.2.0 não apresentou vulnerabilidades conhecidas.
 
 Isso é importante porque mesmo que o nosso código esteja correto, se usarmos uma biblioteca desatualizada com falha de segurança conhecida, o sistema continua vulnerável.
 
