@@ -75,7 +75,7 @@ Não tem segredo aqui: se chegou nesse ponto, o código passou em tudo e merece 
 URL de produção
 🔗 https://sand-smac.github.io/security-pipeline/
 
-O que aprendi com isso
-Antes desse projeto eu sabia que segurança era importante, mas não entendia direito como isso funcionava na prática dentro de um fluxo de desenvolvimento.
+O que aprendi com isso:
+Antes desse projeto, eu sabia que segurança era importante, mas não entendia direito como isso funcionava na prática dentro de um fluxo de desenvolvimento.
 Ver uma ferramenta como o Gitleaks barrar um commit por causa de uma senha no código, ou o Semgrep apontar exatamente a linha do SQL Injection — isso tornou o conceito muito mais concreto pra mim.
 O que ficou mais claro é que segurança não é algo que você adiciona no final. Ela precisa estar no meio do processo, bloqueando problemas antes que eles cheguem em produção, assunto repisado em sala de aula e demonstrado na  pipeline.
