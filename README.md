@@ -74,6 +74,8 @@ Não tem segredo aqui: se chegou nesse ponto, o código passou em tudo e merece 
 
 URL de produção
 🔗 https://sand-smac.github.io/security-pipeline/
+URL de Resultado
+https://sand-smac.github.io/projeto-devsecops-desafio/
 
 O que aprendi com isso:
 Antes desse projeto, eu sabia que segurança era importante, mas não entendia direito como isso funcionava na prática dentro de um fluxo de desenvolvimento.
