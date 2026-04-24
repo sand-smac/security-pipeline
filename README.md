@@ -1,5 +1,5 @@
 🛡️ Security Pipeline — Desafio DevSecOps | ADA Tech
-Repositório: sand-smac/security-pipeline · Branch: main
+Repositório: sand-smac/security-pipeline· Branch: main
 
 Sobre o projeto
 Esse repositório faz parte do desafio prático do módulo de DevSecOps da ADA Tech.
