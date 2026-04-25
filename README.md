@@ -73,6 +73,7 @@ Esse gate só roda se os três anteriores passarem. Ele publica a aplicação au
 Não tem segredo aqui: se chegou nesse ponto, o código passou em tudo e merece ir para produção.
 
 URL de produção
+https://github.com/sand-smac/PROJETO-FINAL-DESAFIO
 🔗 https://sand-smac.github.io/security-pipeline/
 URL de Resultado
 https://sand-smac.github.io/projeto-devsecops-desafio/
